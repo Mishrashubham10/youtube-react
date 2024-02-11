@@ -14,7 +14,7 @@ const CategoryPills = ({
   onSelect,
 }: CategoryPillProps) => {
   const [isLeftVisible, setIsLeftVisible] = useState(false);
-  const [isRightVisible, setIsRightVisible] = useState(true);
+  const [isRightVisible, setIsRightVisible] = useState(false);
   const [translate, setTranslate] = useState(0);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,20 +22,25 @@ const CategoryPills = ({
   const TRANSLATE_AMOUNT = 200;
 
   useEffect(() => {
-    if (containerRef.current === null) return 
+    if (containerRef.current === null) return;
 
-    const observer = new ResizeObserver(entries => {
-        const container = entries[0]?.target
+    const observer = new ResizeObserver((entries) => {
+      const container = entries[0]?.target;
 
-        if (container == null) return 
-    })
+      if (container == null) return;
 
-    observer.observe(containerRef.current)
+      setIsLeftVisible(translate > 0);
+      setIsRightVisible(
+        translate + container.clientWidth < container.scrollWidth
+      );
+    });
+
+    observer.observe(containerRef.current);
 
     return () => {
-        observer.disconnect()
-    }
-  }, [categories, translate])
+      observer.disconnect();
+    };
+  }, [categories, translate]);
 
   return (
     <div className="overflow-x-hidden relative" ref={containerRef}>
