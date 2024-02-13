@@ -26,11 +26,10 @@ import { buttonStyles } from '../components/Button';
 import Button from '../components/Button';
 import { twMerge } from 'tailwind-merge';
 import { playlists, subscriptions } from '../data/sidebar';
-// import { useSidebarContext } from '../contexts/SidebarContext';
-// import { PageHeaderFirstSection } from './PageHeader';
+import { useSidebarContext } from '../context/SidebarContext';
 
 export function Sidebar() {
-  // const { isLargeOpen, isSmallOpen, close } = useSidebarContext();
+  const { isLargeOpen, isSmallOpen } = useSidebarContext()
 
   return (
     <>
@@ -195,7 +194,9 @@ function LargeSidebarSection({
   title,
   visibleItemCount = Number.POSITIVE_INFINITY,
 }: LargeSidebarSectionProps) {
+
   const [isExpanded, setIsExpanded] = useState(false);
+
   const childrenArray = Children.toArray(children).flat();
   const showExpandButton = childrenArray.length > visibleItemCount;
   const visibleChildren = isExpanded

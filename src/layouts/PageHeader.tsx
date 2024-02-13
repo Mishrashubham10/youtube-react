@@ -1,9 +1,11 @@
 import { ArrowLeft, Bell, Menu, Mic, Search, Upload, User } from 'lucide-react';
 import Button from '../components/Button';
 import { useState } from 'react';
+import { useSidebarContext } from '../context/SidebarContext';
 
 const PageHeader = () => {
   const [showFullWidthSearch, setShowFullWidthSearch] = useState(false);
+  const { toggle } = useSidebarContext() 
 
   return (
     <div className="flex gap-10 lg:gap-20 justify-between pt-2 mb-6 mx-4">
@@ -12,7 +14,7 @@ const PageHeader = () => {
           showFullWidthSearch ? 'hidden' : 'flex'
         }`}
       >
-        <Button variant="ghost" size="icon">
+        <Button onClick={toggle} variant="ghost" size="icon">
           <Menu />
         </Button>
         <a href="/" className="h-6">
