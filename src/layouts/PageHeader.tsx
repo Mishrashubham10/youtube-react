@@ -1,5 +1,4 @@
 import { ArrowLeft, Bell, Menu, Mic, Search, Upload, User } from 'lucide-react';
-import logo from '../assets/Logo.png';
 import { useState } from 'react';
 import Button from "../components/Button";
 import { useSidebarContext } from '../context/SidebarContext';
@@ -89,9 +88,7 @@ export function PageHeaderFirstSection({
       <Button onClick={toggle} variant="ghost" size="icon">
         <Menu />
       </Button>
-      <a href="/">
-        <img src={logo} className="h-6" />
-      </a>
+      <p className='font-bold text-sm'>webtube</p>
     </div>
   );
 }
