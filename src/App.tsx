@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { categories, videos } from './data/home';
 import { VideoGridItem } from './components/VideoGridItem';
-import PageHeader from './layouts/PageHeader';
 import CategoryPills from './components/CategoryPills';
 import { Sidebar } from './layouts/Sidebar';
 import { SidebarProvider } from './context/SidebarContext';
+import { PageHeader } from './layouts/PageHeader';
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);

@@ -1,26 +1,16 @@
 import { ArrowLeft, Bell, Menu, Mic, Search, Upload, User } from 'lucide-react';
-import Button from '../components/Button';
+import logo from '../assets/Logo.png';
 import { useState } from 'react';
+import Button from "../components/Button";
 import { useSidebarContext } from '../context/SidebarContext';
 
-const PageHeader = () => {
+
+export function PageHeader() {
   const [showFullWidthSearch, setShowFullWidthSearch] = useState(false);
-  const { toggle } = useSidebarContext() 
 
   return (
     <div className="flex gap-10 lg:gap-20 justify-between pt-2 mb-6 mx-4">
-      <div
-        className={`gap-4 items-center flex-shrink-0 ${
-          showFullWidthSearch ? 'hidden' : 'flex'
-        }`}
-      >
-        <Button onClick={toggle} variant="ghost" size="icon">
-          <Menu />
-        </Button>
-        <a href="/" className="h-6">
-          Youtube
-        </a>
-      </div>
+      <PageHeaderFirstSection hidden={showFullWidthSearch} />
       <form
         className={`gap-4 flex-grow justify-center ${
           showFullWidthSearch ? 'flex' : 'hidden md:flex'
@@ -30,8 +20,8 @@ const PageHeader = () => {
           <Button
             onClick={() => setShowFullWidthSearch(false)}
             type="button"
-            variant="ghost"
             size="icon"
+            variant="ghost"
             className="flex-shrink-0"
           >
             <ArrowLeft />
@@ -40,10 +30,10 @@ const PageHeader = () => {
         <div className="flex flex-grow max-w-[600px]">
           <input
             type="search"
-            placeholder="Search..."
+            placeholder="Search"
             className="rounded-l-full border border-secondary-border shadow-inner shadow-secondary py-1 px-4 text-lg w-full focus:border-blue-500 outline-none"
           />
-          <Button className="py-2 px-4 rounded-r-full border border-secondary-border border-l-0 flex-shrink-0">
+          <Button className="py-2 px-4 rounded-r-full border-secondary-border border border-l-0 flex-shrink-0">
             <Search />
           </Button>
         </div>
@@ -58,27 +48,50 @@ const PageHeader = () => {
       >
         <Button
           onClick={() => setShowFullWidthSearch(true)}
-          variant="ghost"
           size="icon"
+          variant="ghost"
           className="md:hidden"
         >
           <Search />
         </Button>
-        <Button variant="ghost" size="icon" className="md:hidden">
+        <Button size="icon" variant="ghost" className="md:hidden">
           <Mic />
         </Button>
-        <Button variant="ghost" size="icon">
+        <Button size="icon" variant="ghost">
           <Upload />
         </Button>
-        <Button variant="ghost" size="icon">
+        <Button size="icon" variant="ghost">
           <Bell />
         </Button>
-        <Button variant="ghost" size="icon">
+        <Button size="icon" variant="ghost">
           <User />
         </Button>
       </div>
     </div>
   );
+}
+
+type PageHeaderFirstSectionProps = {
+  hidden?: boolean;
 };
 
-export default PageHeader;
+export function PageHeaderFirstSection({
+  hidden = false,
+}: PageHeaderFirstSectionProps) {
+  const { toggle } = useSidebarContext();
+
+  return (
+    <div
+      className={`gap-4 items-center flex-shrink-0 ${
+        hidden ? 'hidden' : 'flex'
+      }`}
+    >
+      <Button onClick={toggle} variant="ghost" size="icon">
+        <Menu />
+      </Button>
+      <a href="/">
+        <img src={logo} className="h-6" />
+      </a>
+    </div>
+  );
+}
